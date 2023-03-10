@@ -1,25 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react"
+import Header from "./component/Header"
+import NoteList from "./component/NoteList"
+import Write from "./component/Write"
+import Edit from "./component/Edit"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <BrowserRouter>
+      <div className="App">
+        <Header />
 
-export default App;
+        <Routes>
+          <Route path="/" element={<NoteList />} />
+          <Route path="/write" element={<Write />} />
+          <Route path="/edit" element={<Edit />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
+  )
+}

@@ -1,7 +1,9 @@
 # react note app
 
-### json server
+### git branch
 
-### npm i json-server
+### git branch {name}
 
-### json-server- --watch ./src/db/data.json --port 3001
+### git switch {name}
+
+### npm run bulid -> firebase deploy

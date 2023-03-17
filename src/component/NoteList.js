@@ -1,14 +1,27 @@
-// import db from '../db/data.json'
 import { useEffect, useState } from "react"
 import Note from "./Note"
+import { db } from "../firebase"
+import { collection, query, onSnapshot, orderBy } from "firebase/firestore"
 
 export default function NoteList() {
   const [notes, setNotes] = useState([])
 
   useEffect(() => {
-    fetch("http://localhost:3001/notes?_sort=date&_order=desc")
-      .then((res) => res.json())
-      .then((data) => setNotes(data))
+    const q = query(collection(db, "notes"), orderBy("date", "desc"))
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const items = []
+      querySnapshot.forEach((doc) => {
+        items.push({
+          ...doc.data(),
+          id: doc.id,
+        })
+      })
+      console.log(items)
+      setNotes(items)
+    })
+
+    return () => unsubscribe()
   }, [])
 
   return (
